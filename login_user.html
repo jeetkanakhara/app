@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<style>
+body{
+	background-color: azure;
+	font-family:Verdana,Georgia;
+	font-size:14px;
+	margin-right:70px;
+	margin-left:8px;
+	}
+
+
+
+
+input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+input[type=submit] {
+    width: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+frm {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+	margin-left:10px;
+	margin-right:50px;
+	display:block;
+}
+</style>  
+	<link rel="stylesheet" type="text/css" href="style.css">
+<div class="frm">
+
+	<h2>Log In</h2>
+  <form action="test.php" method="post">
+    <label for="fname">FirstName</label><br>
+    <input type="text" id="fname" name="firstname" placeholder="Your name.." required><br>
+    
+     <label for="pass">Password</label><br>
+    <input type="password" id="pass" name="Password" placeholder="Your password.." required><br>
+    
+     
+    <input type="submit" value="LogIn">
+	<br><br><br><br>
+  </form>
+</div>
+</body>
+</html>
+<?php
+function test(){
+    $con=mysqli_connect('localhost','root','');
+if(!$con)
+{
+  echo 'Not Connected To sever';
+
+}
+if(!mysqli_select_db($con,'signup'))
+{
+  echo 'database not selected';
+
+}
+if(isset($_POST['firstname']) and isset($_POST['Password'])){
+$name=$_POST['firstname'];
+$password=$_POST['Password'];
+$sql="SELECT * FROM users";
+$f=0;
+$records=mysqli_query($con,$sql);
+while($row = mysqli_fetch_array($records))
+// while ($row = mysql_fetch_array($result) or die mysql_error())
+{
+ if($row['password']==$password&&$row['firstname']==$name)
+  {
+    $f=1;
+    break;
+  }
+
+}
+if($f==1)
+{
+
+  header("refresh:0;url=main.html");
+
+}
+else {
+    echo "enter correct details";
+        header("refresh:2;url=login_user.html");
+}
+}
+
+}
+?>

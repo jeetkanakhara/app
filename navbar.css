@@ -1,0 +1,13 @@
+body{
+	display:inline;
+}
+.navbar{
+	background :#8B4513;
+}
+.quote{
+	position:absolute;
+	text-align:center;
+	top:40%;
+	left:40%;
+
+}
